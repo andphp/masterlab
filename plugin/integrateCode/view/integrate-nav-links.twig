@@ -1,0 +1,22 @@
+<ul class="nav-links">
+    <li id="integrates-list"  class=" {% if (integrates_nav_links_active == '') %} <?= 'active' ?>{% endif %} state_li" data-value="list">
+        <a  title="版本库" href="<?=project_root_url?>/plugin/integrates/" ><span> 版本库 </span>
+        </a>
+    </li>
+    <li id="integrates-code" class=" {% if (integrates_nav_links_active == 'code') %} <?= 'active' ?>{% endif %} state_li" data-value="code">
+        <a  title="代码" href="<?=project_root_url?>/plugin/integrateCode" ><span> 代码 </span>
+        </a>
+    </li>
+    <li id="integrates-review"  class=" {% if (integrates_nav_links_active == 'review') %} <?= 'active' ?>{% endif %} state_li"  data-value="review">
+        <a  title="评审" href="<?=project_root_url?>/plugin/integratesReview" ><span> 评审 </span>
+        </a>
+    </li>
+    <li id="integrates-build"  class=" {% if (integrates_nav_links_active == 'build') %} <?= 'active' ?>{% endif %} state_li" data-value="build">
+        <a  title="构建" href="<?=project_root_url?>/plugin/integrates/build" ><span> 构建 </span>
+        </a>
+    </li>
+    <li id="integrates-command"  class=" {% if (integrates_nav_links_active == 'command') %} <?= 'active' ?>{% endif %} state_li" data-value="command">
+        <a  title="指令" href="<?=project_root_url?>/plugin/integrates/command" ><span> 指令 </span>
+        </a>
+    </li>
+</ul>

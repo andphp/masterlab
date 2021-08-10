@@ -56,7 +56,7 @@
                                             <!--<input type="search" name="content" id="filter_content" placeholder="内 容" class="form-control search-text-input input-short" spellcheck="false" value="" />-->
                                             <select name="user_id" id="user_id" title="经办人" class="selectpicker show-tick"  data-width="auto"  data-live-search="true">
                                                 <option value="">请选择</option>
-                                                {% for row in users %}
+                                                {% for row in repos %}
                                                     {% set  display_name = row['display_name'] %}
                                                     <option value="<?=row.uid?>"  data-content="<img width='26px' height='26px' class=' float-none' style='border-radius: 50%;' src='/attachment/avatar/<?=row.uid?>.png' > <?=display_name?>"  ><?=display_name?></option>
                                                 {% endfor %}

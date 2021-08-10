@@ -1,0 +1,11 @@
+{
+  "main_class": "DevintePlugin",
+  "title": "devinte",
+  "description": "ss",
+  "version": "1.0",
+  "type": "theme",
+  "chmod":[],
+  "url":"",
+  "company":"",
+  "icon_file": "/attachment/image/20210803/20210803130944_15568.png"
+}

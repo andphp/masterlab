@@ -1,0 +1,33 @@
+.dir {
+    background-image: url(/plugin/integrate/images/dir.png);
+}
+.file {
+    background-image: url(/plugin/integrate/images/txt.png);
+}
+.mini-icon {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background-color: transparent;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    vertical-align: text-bottom;
+}
+
+.page-title {
+    padding-left: 10px;
+    float: left;
+    line-height: 34px;
+}
+.select_ii{
+    height: 35px;
+    width: 300px;
+    padding: 6px 8px 6px 10px;
+    background-color: #fff;
+    color: rgba(0,0,0,0.85);
+    font-size: 14px;
+    text-align: left;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    white-space: nowrap;
+}

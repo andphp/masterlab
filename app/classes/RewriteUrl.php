@@ -33,6 +33,7 @@ class RewriteUrl
             return ['OrgRoute', '', 'AdminPlugin'];
         }
         $ctrl = $engine->ctrl;
+
         if ($engine->enableSecurityMap) {
             $mapConfig = getCommonConfigVar('map');
             if (empty($engine->mod)) {
@@ -46,6 +47,7 @@ class RewriteUrl
             }
         } else {
             $list = $this->readDir(APP_PATH . '/' . 'ctrl');
+
             if (!isset($list[$ctrl])) {
                 $originModel = new OrgModel();
                 $origins = $originModel->getPaths();

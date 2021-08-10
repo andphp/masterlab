@@ -1,6 +1,15 @@
- <IfModule mod_rewrite.c>
-	RewriteEngine on
-	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteRule ^(.*)$ index.php?/$1 [QSA,PT,L]
-</IfModule>
+   <VirtualHost *:80>
+    DocumentRoot "f:/wwwroot/masterlab/public"
+    ServerName  masterlab.test
+    <Directory />    
+        Options Indexes FollowSymLinks
+        AllowOverride All      
+        Allow from All     
+    </Directory>    
+    <Directory "f:/wwwroot/masterlab/public">    
+        Options  Indexes FollowSymLinks    
+        AllowOverride All    
+        Order allow,deny    
+        Allow from All    
+    </Directory> 
+  </VirtualHost>

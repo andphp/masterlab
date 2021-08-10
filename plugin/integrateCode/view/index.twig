@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="" lang="en">
+<head  >
+
+    {% include 'twig/common/header/include.twig' %}
+    <script src="/plugin/integrate/js/integrate_code.js?v=<?=_version?>" type="text/javascript" charset="utf-8"></script>
+    <link href="/plugin/integrate/css/integrate.css?v=<?=_version?>" rel="stylesheet">
+    <script src="/dev/lib/handlebars-v4.0.10.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/dev/lib/bootstrap-select/js/bootstrap-select.js" type="text/javascript" charset="utf-8"></script>
+    <link href="/dev/lib/bootstrap-select/css/bootstrap-select.css" rel="stylesheet">
+    <script src="/dev/lib/bootstrap-paginator/src/bootstrap-paginator.js?v=<?=_version?>"  type="text/javascript"></script>
+    <script src="/dev/lib/bootstrap-paginator/src/bootstrap-paginator.js" type="text/javascript"></script>
+
+</head>
+
+<body class="" data-group="" data-page="projects:issues:index" data-project="default">
+{% include 'twig/common/body/script.twig' %}
+
+<section class="has-sidebar page-layout max-sidebar">
+    {% include 'twig/common/body/page-left.twig' %}
+    <div class="page-layout page-content-body system-page">
+        {% include 'twig/common/body/header-content.twig' %}
+
+        <script>
+            var findFileURL = "";
+        </script>
+        <div class="page-with-sidebar system-page">
+            {% include 'twig/project/common-page-nav-project.twig' %}
+
+            <div class="content-wrapper page-with-layout-nav page-with-sub-nav">
+                <div class="alert-wrapper">
+                    <div class="flash-container flash-container-page">
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="content" id="content-body">
+                        <div class="row  ">
+                            <div class="col-lg-12">
+                                <div class="top-area">
+
+                                    {% include 'integrate-nav-links.twig' %}
+
+                                </div>
+                                <div class="top-area">
+                                    <div class="nav-links page-title" id="path_url_id">
+                                        <storng>/</storng>
+                                    </div>
+                                    <div class="nav-controls">
+                                        <form id="filter_form" action="" onsubmit="return false" accept-charset="UTF-8" method="get">
+                                            <input name="project_id" id="project_id" type="hidden" value="<?=project_id?>">
+                                            <select name="repo" id="repo_id" title="仓库" class="select_ii show-tick"  data-width="auto"  data-live-search="true">
+                                                {% for row in repos %}
+                                                    {% set  display_name = row.name %}
+                                                    <option value="<?=row.id?>"  data-content="<?=display_name?>" {% if (row.id == repo) %} <?= 'selected' ?>{% endif %} ><?=display_name?></option>
+                                                {% endfor %}
+                                            </select>
+                                            <select name="branch" id="branch_id" title="分支" class="select_ii show-tick"  data-width="auto"  data-live-search="true">
+                                                {% for row in branch %}
+                                                    <option value="<?=row.name?>"  data-content="row.name" {% if (row.name == branchNow) %} <?= 'selected' ?>{% endif %} ><?=row.name?></option>
+                                                {% endfor %}
+                                            </select>
+                                            <div class="btn-group" style="margin-bottom: 5px">
+                                                <a class="btn btn-gray" id="btn-reset" href="#">
+                                                    <i class="fa fa-filter"></i> 切 换
+                                                </a>
+                                                <a class="btn"  href="#"  id="btn-reload"    >
+                                                    <i class="fa fa-undo"></i> 刷 新
+                                                </a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="content-list">
+                                    <div class="main-col main-table">
+                                        <table class='table table-fixed'>
+                                            <thead>
+                                            <tr>
+                                                <th ></th>
+                                                <th >名称</th>
+                                                <th class='text-center' style="width:220px;">版本</th>
+                                                <th style="width:120px;">大小</th>
+                                                <th style="width:120px;">作者</th>
+                                                <th style="width:160px;">提交时间</th>
+                                                <th>注释</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="list_render_id">
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% verbatim %}
+
+<script type="text/html"  id="path_url">
+
+{{#rootPath}}
+/ <storng>
+ <a href="javascript:void(0)" onclick="openDir('{{path}}/{{name}}')"  title="打开 {{name}}">{{{name}}}</a>
+</storng>
+{{/rootPath}}
+</script>>
+<script type="text/html"  id="list_tpl">
+    {{#infos}}
+        <tr class="commit">
+             <td class="icon">
+                <span class="{{kind}} mini-icon"></span>
+             </td>
+             <td>
+              {{#if_eq kind 'dir'}}
+                        <a href="javascript:void(0)" onclick="openDir('{{dir}}/{{name}}')"  title="打开 {{name}}">{{{name}}}</a>
+              {{/if_eq}}
+              {{#if_eq kind 'file'}}
+                        <a href="javascript:void(0)" onclick="openFile('{{name}}')"  title="浏览 {{name}}">{{{name}}}</a>
+              {{/if_eq}}
+            </td>
+            <td>
+                {{revision}}
+            </td>
+
+             <td>
+                 {{size}}
+            </td>
+            <td>
+                {{account}}
+            </td>
+             <td>
+                {{date}}
+            </td>
+             <td>
+                {{comment}}
+            </td>
+        </tr>
+    {{/infos}}
+
+</script>{% endverbatim %}
+
+
+<script src="/dev/js/handlebars.helper.js?v=<?=_version?>"></script>
+<script type="text/javascript">
+
+    var $plugin = null;
+    var uploader = null;
+    var options = {
+        list_render_id:"list_render_id",
+        list_tpl_id:"list_tpl",
+        path_render_id:"path_url_id",
+        path_tpl_id:"path_url",
+        filter_url:"/admin/plugin/<?=plugin_name?>/fetchAll",
+        get_url:"/admin/plugin/<?=plugin_name?>/get",
+        params:"",
+        branch_url:"/admin/plugin/<?=plugin_name?>/branchSelect",
+        branch_render_id:"branch_id",
+        branch_fetch_url:"/admin/plugin/<?=plugin_name?>/branchFetch"
+    }
+    $(function() {
+        $integrateCode = new IntegrateCode( options );
+        $integrateCode.fetchInfos( );
+
+        $("#btn-reset").click(function(){
+            $('#path_url_id').html('/');
+            Object.assign(options,{params:''})
+            $integrateCode.fetchInfos( );
+        });
+        $("#btn-reload").click(function(){
+            Object.assign(options,{params:''})
+            $integrateCode.branchFetch( );
+            setTimeout(function(){
+                $integrateCode.setOptions(options );
+                $integrateCode.fetchInfos( );
+                $('#path_url_id').html('/');
+                $integrateCode.branchSelect( );
+                setTimeout(function(){
+                    $integrateCode.setOptions(options)
+                    $integrateCode.fetchInfos( );
+                }, 500)
+            }, 500)
+        });
+        $("#repo_id").change(function () {
+            $('#path_url_id').html('/');
+            $integrateCode.branchSelect( );
+            setTimeout(function(){
+                $integrateCode.setOptions(options)
+                $integrateCode.fetchInfos( );
+            }, 500)
+        })
+
+
+    });
+    function openDir(dir) {
+        Object.assign(options,{params:'&dir='+dir})
+        $integrateCode = new IntegrateCode( options );
+        $integrateCode.fetchInfos( );
+        //return false;//在ie6下，如果不写return false可能有问题。
+    }
+    function openFile(file) {
+        var options = {
+            list_render_id:"list_render_id",
+            list_tpl_id:"list_tpl",
+            filter_url:"/admin/plugin/<?=plugin_name?>/fetchAll?project_id=<?=project_id?>",
+            get_url:"/admin/plugin/<?=plugin_name?>/get",
+            params:'&file='+file
+        }
+        $integrateCode = new IntegrateCode( options );
+        $integrateCode.fetchInfos( );
+    }
+
+</script>
+</body>
+</html>

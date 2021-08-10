@@ -317,13 +317,12 @@ class DbModel extends BaseModel
     /**
      * 通过主键删除记录
      * @param $id
-     * @return int
-     * @throws \Doctrine\DBAL\DBALException
-     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
+     * @return array
+     * @throws Exception
      */
     public function deleteById($id)
     {
-        $flag = $this->delete([$this->primaryKey => $id]);
+        $flag = $this->update(['deleted'=>1],['id'=>$id]);
         return $flag;
     }
 

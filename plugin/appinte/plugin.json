@@ -1,0 +1,11 @@
+{
+  "main_class": "AppintePlugin",
+  "title": "appinte",
+  "description": "",
+  "version": "1.0",
+  "type": "app",
+  "chmod":[],
+  "url":"",
+  "company":"",
+  "icon_file": "/attachment/image/20210803/20210803130738_51771.png"
+}

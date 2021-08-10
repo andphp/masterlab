@@ -273,15 +273,17 @@ class PluginManager extends BaseAdminCtrl
             $info['is_system'] = '0';
             list($ret, $msg) = $model->replace($info);
             if ($ret) {
+                $model = new PluginModel();
+                $pluginRow = $model->getByName($_POST['name']);
+
                 // 发布安装事件
-                $event = new PluginPlacedEvent($this, $info);
-                $this->dispatcher->dispatch($event, $pluginName . '@' . Events::onPluginInstall);
+                $event = new PluginPlacedEvent($this, $pluginRow);
+                $this->dispatcher->dispatch($event,    $pluginName . '@' .Events::onPluginInstall);
             } else {
                 $this->ajaxFailed('服务器错误:', $msg);
             }
         }
-        $this->ajaxSuccess('提示', '安装成功');
-
+       $this->ajaxSuccess('提示', '安装成功');
     }
 
     /**

@@ -420,3 +420,19 @@ if (!function_exists('safeStr')) {
         return $str;
     }
 }
+
+if (!function_exists('strShell2Array')) {
+    function strShell2Array($str){
+        $data = preg_split('/\n/',$str);
+        $ret = array();
+        foreach ($data as $item){
+            $str1=preg_replace ( "/\s(?=\s)/","\\1", $item);
+            $str2 = str_replace("\t"," ",$str1);
+            //去除字符串左右两边的空格
+            $str3=trim($str2);
+            //将字符串以空格为界分隔
+            $ret[]=explode(" ",$str3);
+        }
+        return $ret;
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "main_class": "IntegratesPlugin",
+  "title": "开发集成",
+  "description": "开发集成",
+  "version": "1.0",
+  "type": "project_module",
+  "chmod":[],
+  "url":"",
+  "company":"",
+  "icon_file": "/attachment/plugin/develop.png"
+}
